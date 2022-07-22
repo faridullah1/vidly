@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const debug = require('debug')('app:startup');
+const debug = require('debug')('app');
 const genreRoutes = require('./routes/genres');
 
 dotenv.config({ path: 'config.env'} );
@@ -23,5 +23,5 @@ app.use('/api/genres', genreRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-	console.log(`Server is listening on port = ${port}`);
+	debug(`Server is listening on port = ${port}`);
 });
