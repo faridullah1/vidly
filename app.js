@@ -1,12 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
-const dotenv = require('dotenv');
 const debug = require('debug')('app');
 const genreRoutes = require('./routes/genres');
 
-dotenv.config({ path: 'config.env'} );
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded( { extended: true }));
 
