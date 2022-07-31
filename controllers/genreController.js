@@ -1,55 +1,52 @@
 const Joi = require('joi');
+const Genre = require('../models/genreModel');
 
-const genres = [
-	{ id: 1, name: 'horror' },
-	{ id: 2, name: 'action' },
-	{ id: 3, name: 'comedy' },
-];
-
-exports.getAllGenres = (req, res) => {
+exports.getAllGenres = async (req, res) => {
+	const genres = await Genre.find();
 	res.status(200).send(genres);
 }
 
-exports.getGenreById = (req, res) => {
-	const genre = genres.find(g => g.id === parseInt(req.params.id));
+exports.getGenreById = async (req, res) => {
+	const genre = await Genre.findById(req.params.id);
+
 	if (!genre) return res.status(404).send('Genre with the given ID was not found.');
 
 	res.status(200).send(genre);
 };
 
-exports.createGenre = (req, res) => {
+exports.createGenre = async (req, res) => {
 	const { error } = validateGenre(req.body);
 	if (error) return res.status(400).send(error.message);
 
-	const genre = {
-		id: genres.length + 1,
+	const genre = new Genre({
 		name: req.body.name
-	};
-	genres.push(genre);
+	});
 
-	res.status(200).send(genre);
+	const result = await genre.save();
+
+	res.status(200).send(result);
 }
 
-exports.updateGenre = (req, res) => {
-	const genre = genres.find(g => g.id === parseInt(req.params.id));
+exports.updateGenre = async (req, res) => {
+	const genre = await Genre.findById(req.params.id);
 	if (!genre) return res.status(404).send('Genre with the given ID was not found.');
 
 	const { error } = validateGenre(req.body);
 	if (error) return res.status(400).send(error.message);
 
-	genre.name = req.body.name
+	genre.name = req.body.name;
+	const result = await genre.save();
 
-	res.status(200).send(genre);
+	res.status(200).send(result);
 };
 
-exports.deleteGenre =  (req, res) => {
-	const genre = genres.find(g => g.id === parseInt(req.params.id));
+exports.deleteGenre = async (req, res) => {
+	const genre = await Genre.findById(req.params.id);
 	if (!genre) return res.status(404).send('Genre with the given ID was not found.');
 
-	const index = genres.indexOf(genre);
-	genres.splice(index, 1);
+	const result = await genre.deleteOne();
 
-	res.status(204).send(genre);
+	res.status(204).send(result);
 };
 
 function validateGenre(genre) {
