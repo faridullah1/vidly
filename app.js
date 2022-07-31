@@ -21,7 +21,4 @@ app.get('/', (req, res) => {
 
 app.use('/api/genres', genreRoutes);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-	debug(`Server is listening on port = ${port}`);
-});
+module.exports = app;
