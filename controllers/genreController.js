@@ -28,23 +28,38 @@ exports.createGenre = async (req, res) => {
 }
 
 exports.updateGenre = async (req, res) => {
-	const genre = await Genre.findById(req.params.id);
-	if (!genre) return res.status(404).send('Genre with the given ID was not found.');
+	// Using Query First approach
+	
+	// const genre = await Genre.findById(req.params.id);
+	// if (!genre) return res.status(404).send('Genre with the given ID was not found.');
 
+	// const { error } = validateGenre(req.body);
+	// if (error) return res.status(400).send(error.message);
+
+	// genre.name = req.body.name;
+	// const result = await genre.save();
+
+	// Using direct approach
 	const { error } = validateGenre(req.body);
 	if (error) return res.status(400).send(error.message);
 
-	genre.name = req.body.name;
-	const result = await genre.save();
+	const genre = await Genre.findByIdAndUpdate(req.params.id, req.body, {
+		new: true
+	});
 
-	res.status(200).send(result);
+	res.status(200).send(genre);
 };
 
 exports.deleteGenre = async (req, res) => {
-	const genre = await Genre.findById(req.params.id);
-	if (!genre) return res.status(404).send('Genre with the given ID was not found.');
+	// Using query first approach
+	// const genre = await Genre.findById(req.params.id);
+	// if (!genre) return res.status(404).send('Genre with the given ID was not found.');
 
-	const result = await genre.deleteOne();
+	// const result = await genre.deleteOne();
+
+	const genre = await Genre.findByIdAndRemove(req.params.id);
+	
+	if (!genre) return res.status(404).send('Genre with the given ID was not found.');
 
 	res.status(204).send(result);
 };
