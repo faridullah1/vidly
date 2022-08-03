@@ -3,7 +3,9 @@ const morgan = require('morgan');
 const debug = require('debug')('app');
 
 const homeRouter = require('./routes/homeRoute');
-const genreRouter = require('./routes/genres');
+const genreRouter = require('./routes/genreRoutes');
+const customerRouter = require('./routes/customerRoutes');
+
 
 const app = express();
 app.use(express.json());
@@ -16,5 +18,6 @@ if (app.get('env') === 'development') {
 
 app.use('/', homeRouter);
 app.use('/api/v1/genres', genreRouter);
+app.use('/api/v1/customers', customerRouter);
 
 module.exports = app;
