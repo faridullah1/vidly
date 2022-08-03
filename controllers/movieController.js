@@ -2,8 +2,8 @@ const { Genre } = require('../models/genreModel');
 const { Movie, validate } = require('../models/movieModel');
 
 exports.getAllMovies = async (req, res) => {
-	const moview = await Movie.find().sort('title');
-	res.status(200).send(moview);
+	const movies = await Movie.find().sort('title');
+	res.status(200).send(movies);
 }
 
 exports.getMovieById = async (req, res) => {
