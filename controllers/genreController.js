@@ -58,10 +58,10 @@ exports.deleteGenre = async (req, res) => {
 	// const result = await genre.deleteOne();
 
 	const genre = await Genre.findByIdAndRemove(req.params.id);
-	
+
 	if (!genre) return res.status(404).send('Genre with the given ID was not found.');
 
-	res.status(204).send(result);
+	res.status(204).send(genre);
 };
 
 function validateGenre(genre) {
