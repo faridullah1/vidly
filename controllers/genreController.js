@@ -21,7 +21,7 @@ exports.createGenre = async (req, res) => {
 		name: req.body.name
 	});
 
-	const result = await genre.save();
+	await genre.save();
 
 	res.status(200).send(result);
 }
