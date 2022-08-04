@@ -8,7 +8,7 @@ exports.auth = (req, res, next) => {
 		const decodedToken = jwt.decode(token, process.env.jwtPrivateKey);
 		if (!decodedToken) return res.status(401).send('Invalid token.');
 		
-		res.user = decodedToken;
+		req.user = decodedToken;
 		next();
 	}
 	catch(err) {
