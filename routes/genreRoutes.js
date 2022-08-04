@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const genreController = require('../controllers/genreController');
+const { admin } = require('../middleware/admin');
 const { auth } = require('../middleware/auth');
 
 router.route('/')
@@ -10,6 +11,6 @@ router.route('/')
 router.route('/:id')
 	.get(genreController.getGenreById)
 	.put(genreController.updateGenre)
-	.delete(genreController.deleteGenre)
+	.delete([auth, admin], genreController.deleteGenre)
 
 module.exports = router;
