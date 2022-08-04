@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const Joi = require('joi');
 const { User } = require('../models/userModel');
 
-
 exports.login = async (req, res) => {
 	const { error } = validate(req.body);
 	if (error) return res.status(400).send(error.message);
@@ -13,7 +12,8 @@ exports.login = async (req, res) => {
 	const isValid = await bcrypt.compare(req.body.password, user.password);
 	if (!isValid) return res.status(400).send('Invalid email or password.');
 
-	res.status(200).send(true);
+	const token = user.generateAuthToken();
+	res.status(200).send(token);
 }
 
 function validate(req) {
