@@ -1,6 +1,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const debug = require('debug')('app');
+const Joi = require('joi');
+Joi.objectId = require('joi-objectid')(Joi);
 
 const homeRouter = require('./routes/homeRoute');
 const genreRouter = require('./routes/genreRoutes');
