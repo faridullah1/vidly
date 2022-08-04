@@ -3,6 +3,9 @@ const morgan = require('morgan');
 const debug = require('debug')('app');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
+require('express-async-errors');
+
+const errorHandler = require('./middleware/error');
 
 const homeRouter = require('./routes/homeRoute');
 const genreRouter = require('./routes/genreRoutes');
@@ -28,5 +31,7 @@ app.use('/api/v1/movies', movieRouter);
 app.use('/api/v1/rentals', rentalRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/auth', authRouter);
+
+app.use(errorHandler);
 
 module.exports = app;
