@@ -23,7 +23,7 @@ exports.createGenre = async (req, res) => {
 
 	await genre.save();
 
-	res.status(200).send(result);
+	res.status(200).send(genre);
 }
 
 exports.updateGenre = async (req, res) => {

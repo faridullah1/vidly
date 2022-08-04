@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const genreController = require('../controllers/genreController');
+const { auth } = require('../middleware/auth');
 
 router.route('/')
 	.get(genreController.getAllGenres)
-	.post(genreController.createGenre);
+	.post(auth, genreController.createGenre);
 
 router.route('/:id')
 	.get(genreController.getGenreById)
