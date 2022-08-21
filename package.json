@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+	"test": "jest --watchAll"
+  },
+  "jest": {
+	"setupFiles": [
+	  "./jest/setEnvVars.js"
+	]
   },
   "keywords": [],
   "author": "",
@@ -21,5 +27,8 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.5.0",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
   }
 }
