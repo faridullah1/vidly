@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const movieController = require('../controllers/movieController');
+const { admin } = require('../middleware/admin');
 const { auth } = require('../middleware/auth');
 
 router.route('/')
@@ -9,7 +10,7 @@ router.route('/')
 
 router.route('/:id')
 	.get(movieController.getMovieById)
-	.put(movieController.updateMovie)
-	.delete(movieController.deleteMovie)
+	.put(auth, movieController.updateMovie)
+	.delete(auth, admin, movieController.deleteMovie)
 
 module.exports = router;
