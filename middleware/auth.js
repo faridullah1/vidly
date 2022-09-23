@@ -5,7 +5,7 @@ exports.auth = (req, res, next) => {
 	if (!token) return res.status(401).send('Access denied. No token provided.');
 
 	try {
-		const decodedToken = jwt.decode(token, process.env.JWT_PRIVATE_KEY);
+		const decodedToken = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
 		if (!decodedToken) return res.status(401).send('Invalid token.');
 		
 		req.user = decodedToken;
