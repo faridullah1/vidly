@@ -35,6 +35,7 @@ exports.createUser = async (req, res) => {
 
 	const token = user.generateAuthToken();
 	res.setHeader('x-auth-token', token);
+	res.setHeader('access-control-expose-headers', 'x-auth-token');
 
 	res.status(200).send(_.pick(user, ['_id', 'name', 'email']));
 }
