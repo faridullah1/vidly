@@ -23,5 +23,10 @@ module.exports = function(app) {
 	app.use('/api/v1/users', userRouter);
 	app.use('/api/v1/auth', authRouter);
 
+	// Handling View routes
+	app.use('/', (req, res) => {
+		res.sendFile(path.join(__dirname, '../public/index.html'));
+	});
+
 	app.use(errorHandler);
 }

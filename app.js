@@ -9,5 +9,6 @@ require('./startup/routes')(app);
 require('./startup/db')();
 require('./startup/config')(app);
 require('./startup/validation');
+require('./startup/prod')(app);
 
 module.exports = app;
