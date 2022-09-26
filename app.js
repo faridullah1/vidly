@@ -8,10 +8,10 @@ app.use(express.urlencoded( { extended: true }));
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require('./startup/logging')();
-require('./startup/routes')(app);
-require('./startup/db')();
-require('./startup/config')(app);
-require('./startup/validation');
+require('./src/startup/logging')();
+require('./src/startup/routes')(app);
+require('./src/startup/db')();
+require('./src/startup/config')(app);
+require('./src/startup/validation');
 
 module.exports = app;
